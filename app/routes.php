@@ -19,6 +19,7 @@ Route::model('user', 'User');
 Route::model('comment', 'Comment');
 Route::model('post', 'Post');
 Route::model('role', 'Role');
+Route::model('lesson', 'Lesson');
 
 /** ------------------------------------------
  *  Route constraint patterns
@@ -28,7 +29,9 @@ Route::pattern('comment', '[0-9]+');
 Route::pattern('post', '[0-9]+');
 Route::pattern('user', '[0-9]+');
 Route::pattern('role', '[0-9]+');
+Route::pattern('lesson', '[0-9]+');
 Route::pattern('token', '[0-9a-z]+');
+
 
 /** ------------------------------------------
  *  Admin Routes
@@ -68,9 +71,19 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
     Route::post('roles/{role}/delete', 'AdminRolesController@postDelete');
     Route::controller('roles', 'AdminRolesController');
 
+    # Lesson Management
+    Route::get('lessons/{lesson}/show', 'AdminLessonsController@getShow');
+    Route::get('lessons/{lesson}/edit', 'AdminLessonsController@getEdit');
+    Route::post('lessons/{lesson}/edit', 'AdminLessonsController@postEdit');
+    Route::get('lessons/{lesson}/delete', 'AdminLessonsController@getDelete');
+    Route::post('lessons/{lesson}/delete', 'AdminLessonsController@postDelete');
+    Route::controller('lessons', 'AdminLessonsController');
+
     # Admin Dashboard
     Route::controller('/', 'AdminDashboardController');
 });
+
+Route::get('lessons/{lesson}', 'AdminLessonsController@getShow');
 
 
 /** ------------------------------------------
