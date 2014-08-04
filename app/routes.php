@@ -15,22 +15,26 @@
  *  Route model binding
  *  ------------------------------------------
  */
-Route::model('user', 'User');
+Route::model('user',    'User');
 Route::model('comment', 'Comment');
-Route::model('post', 'Post');
-Route::model('role', 'Role');
-Route::model('lesson', 'Lesson');
+Route::model('post',    'Post');
+Route::model('role',    'Role');
+Route::model('lesson',  'Lesson');
+Route::model('quiz',    'Quiz');
+Route::model('course',  'Course');
 
 /** ------------------------------------------
  *  Route constraint patterns
  *  ------------------------------------------
  */
-Route::pattern('comment', '[0-9]+');
-Route::pattern('post', '[0-9]+');
-Route::pattern('user', '[0-9]+');
-Route::pattern('role', '[0-9]+');
-Route::pattern('lesson', '[0-9]+');
-Route::pattern('token', '[0-9a-z]+');
+Route::pattern('comment',   '[0-9]+');
+Route::pattern('post',      '[0-9]+');
+Route::pattern('user',      '[0-9]+');
+Route::pattern('role',      '[0-9]+');
+Route::pattern('lesson',    '[0-9]+');
+Route::pattern('quiz',      '[0-9]+');
+Route::pattern('course',    '[0-9]+');
+Route::pattern('token',     '[0-9a-z]+');
 
 
 /** ------------------------------------------
@@ -83,7 +87,29 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
     Route::controller('/', 'AdminDashboardController');
 });
 
-Route::get('lessons/{lesson}', 'AdminLessonsController@getShow');
+
+
+
+Route::get( 'lesson/{lesson}/edit',    'LessonController@getEdit');
+Route::post('lesson/{lesson}/edit',    'LessonController@postEdit');
+Route::get( 'lesson/{lesson}/delete',  'LessonController@getDelete');
+Route::post('lesson/{lesson}/delete',  'LessonController@postDelete');
+Route::get( 'lesson/{lesson}',         'LessonController@getShow');
+Route::get( 'lesson',                  'LessonController@index');
+Route::controller( 'lesson',           'LessonController');
+
+
+
+
+/** ------------------------------------------
+ *  User's Content Routes
+ *  ------------------------------------------
+ */
+
+
+
+
+
 
 
 /** ------------------------------------------

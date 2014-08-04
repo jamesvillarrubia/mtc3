@@ -20,7 +20,9 @@ class CreateLessonTable extends Migration {
 			$table->integer('creatorID')->index()->default(0)->unsigned();
 			$table->timestamps();
 			$table->string('description',1000);
-			$table->text('text');
+			$table->text('rawtext');
+			$table->text('tagtext');
+			$table->text('cleantext');
 
 		});
 		//

@@ -9,28 +9,36 @@ class PermissionsTableSeeder extends Seeder {
         $permissions = array(
             array( // 1
                 'name'         => 'manage_blogs',
-                'display_name' => 'manage blogs'
+                'display_name' => 'Manage Blogs'
             ),
             array( // 2
                 'name'         => 'manage_posts',
-                'display_name' => 'manage posts'
+                'display_name' => 'Manage Posts'
             ),
             array( // 3
                 'name'         => 'manage_comments',
-                'display_name' => 'manage comments'
+                'display_name' => 'Manage Comments'
             ),
             array( // 4
                 'name'         => 'manage_users',
-                'display_name' => 'manage users'
+                'display_name' => 'Manage Users'
             ),
             array( // 5
                 'name'         => 'manage_roles',
-                'display_name' => 'manage roles'
+                'display_name' => 'Manage Roles'
             ),
             array( // 6
                 'name'         => 'post_comment',
-                'display_name' => 'post comment'
+                'display_name' => 'Post Comment'
             ),
+            array( // 7
+                'name'         => 'manage_lessons',
+                'display_name' => 'Manage Lessons'
+            ),
+            array( // 8
+                'name'         => 'manage_courses',
+                'display_name' => 'Manage Courses'
+            )
         );
 
         DB::table('permissions')->insert( $permissions );
@@ -69,7 +77,7 @@ class PermissionsTableSeeder extends Seeder {
             array(
                 'role_id'       => $role_id_comment,
                 'permission_id' => $permission_base + 6
-            ),
+            )
         );
 
         DB::table('permission_role')->insert( $permissions );
