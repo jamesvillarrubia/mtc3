@@ -90,14 +90,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 
 
 
-Route::get( 'lesson/{lesson}/edit',    'LessonController@getEdit');
-Route::post('lesson/{lesson}/edit',    'LessonController@postEdit');
-Route::get( 'lesson/{lesson}/delete',  'LessonController@getDelete');
-Route::post('lesson/{lesson}/delete',  'LessonController@postDelete');
-Route::get( 'lesson/{lesson}',         'LessonController@getShow');
-Route::get( 'lesson',                  'LessonController@index');
-Route::controller( 'lesson',           'LessonController');
-
+Route::resource('lesson', 'LessonController');
 
 
 
