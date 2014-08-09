@@ -42,24 +42,31 @@ class LessonsTableSeeder extends Seeder {
                 'title'      	=> 'In mea autem etiam menandri',
                 'format'    	=> serialize(array('basic')),
                 'levels' 		=> serialize(array('1')),
-                'description' 	=> 'First basic lesson',
                 'created_at' 	=> new DateTime,
                 'updated_at' 	=> new DateTime,
                 'rawtext'       => $this->content1,
                 'tagtext'       => $this->content1,
                 'cleantext'     => $this->content1,
+                'img_caption'   => 'This is the base caption',
+                'img_credit'    => 'This is my credit',
+                'img_path'      => 'my/fake/path/img.jpg',
+                'wikiword'      => 'wikipedia'
             ),
+
             array(
                 'creatorID'    	=> $user_id,
                 'title'      	=> 'Vivendo suscipiantur vim te vix',
                 'format'    	=> serialize(array('basic')),
                 'levels' 		=> serialize(array('1')),
-                'description' 	=> 'Second basic lesson',
                 'created_at' 	=> new DateTime,
                 'updated_at' 	=> new DateTime,
                 'rawtext'		=> $this->content2,
                 'tagtext'       => $this->content2,
                 'cleantext'     => $this->content2,
+                'img_caption'   => 'This is the base caption',
+                'img_credit'    => 'This is my credit',
+                'img_path'      => 'my/fake/path/img.jpg',
+                'wikiword'      => 'wikipedia'
 
             ),
             array(
@@ -67,12 +74,15 @@ class LessonsTableSeeder extends Seeder {
                 'title'      	=> 'In iisque similique reprimique eum',
                 'format'    	=> serialize(array('basic')),
                 'levels' 		=> serialize(array('1')),
-                'description' 	=> 'Third basic lesson',
                 'created_at' 	=> new DateTime,
                 'updated_at' 	=> new DateTime,
                 'rawtext'       => $this->content3,
                 'tagtext'       => $this->content3,
                 'cleantext'     => $this->content3,
+                'img_caption'   => 'This is the base caption',
+                'img_credit'    => 'This is my credit',
+                'img_path'      => 'my/fake/path/img.jpg',
+                'wikiword'      => 'wikipedia'
             ))
         );
 

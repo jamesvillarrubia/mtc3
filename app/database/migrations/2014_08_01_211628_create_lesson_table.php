@@ -16,14 +16,17 @@ class CreateLessonTable extends Migration {
 			$table->increments('id');
 			$table->string('title',500);
 			$table->string('format',50)->index();
-			$table->string('levels',1000);
 			$table->integer('creatorID')->index()->default(0)->unsigned();
 			$table->timestamps();
-			$table->string('description',1000);
 			$table->text('rawtext');
 			$table->text('tagtext');
 			$table->text('cleantext');
-
+			$table->text('wikiword');
+			$table->text('img_caption');
+			$table->text('img_credit');
+			$table->text('img_path');
+			$table->integer('grade_min');
+			$table->integer('grade_max');
 		});
 		//
 	}

@@ -51,24 +51,53 @@ class LessonController extends BaseController {
 	 */
 	public function store()
 	{
+			//Get input
 			$input = Input::all();
+
+
+
+			//Get the author's id and store it
+			if (Auth::check()){
+     			$id = Auth::user()->getId();
+			}else{
+				//TODO: Remove for prod
+				$id = 0;
+			}
+
+			//Prep for photo upload
+			$destinationPath = '';
+		    $filename        = '';
+
+		    if (Input::hasFile('image')) {
+		        $file            = Input::file('image');
+		        $destinationPath = public_path().'/img/';
+		        $filename        = str_random(6) . '_' . $file->getClientOriginalName();
+		        $uploadSuccess   = $file->move($destinationPath, $filename);
+		    }
+
+
+
+			//Create a new lesson object
 			$lesson = new Lesson;
 
+			//attach elements
 			$lesson->title = $input['lesson_title'];
 			$lesson->format= "";
 			//$lesson->tags  = serialize(explode(',', $input['lesson_tags']));
 			$lesson->levels= serialize(array($input['grade_min'], $input['grade_max']));
-			if (Auth::check()){
-     			$id = Auth::user()->getId();
-			}else{
-				$id = 99;
-			}
+			$lesson->wikiword = $input['lesson_wikikeyword'];
+			$lesson->img_caption = $input['lesson_image_caption'];
+			$lesson->img_credit = $input['lesson_image_credit'];
 			$lesson->creatorID = $id;
-			$lesson->description = "";
 			$lesson->rawtext = $input['lesson_store_raw'];
 			$lesson->tagtext = $input['lesson_store_tagged'];
 			$lesson->cleantext = $input['lesson_store_clean'];
-
+			$lesson->img_path = $destinationPath . $filename;
+			
+			$lesson->save();
+    		if ($lesson) {
+        		return Redirect::route('lesson.show', $lesson->id);
+    		}
 			/*creatorID'    	=> $user_id,
                 'title'      	=> 'In mea autem etiam menandri',
                 'format'    	=> serialize(array('basic')),
@@ -91,8 +120,6 @@ class LessonController extends BaseController {
 			"lesson_store_clean":""}*/
 
 
-			$lesson->save();
-			return $lesson;
 		
 	}
 
@@ -103,9 +130,10 @@ class LessonController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Lesson $lesson)
 	{
-		//
+		return $lesson;
+		return View::make('site/lesson/index', compact('lessons'));
 	}
 
 
