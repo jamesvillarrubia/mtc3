@@ -21,6 +21,9 @@
 		================================================== -->
         <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap-theme.min.css')}}">
+    	<?= stylesheet_link_tag() ?>
+    	<?= javascript_include_tag() ?>
+		
 
 		<style>
         body {

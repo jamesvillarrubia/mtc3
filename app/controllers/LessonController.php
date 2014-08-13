@@ -32,6 +32,9 @@ class LessonController extends BaseController {
 	//Shows a PAGE of lessons
 	public function index(){
 
+
+    	
+
 		// Grab all the lessons
         $lessons = $this->lesson->first();//->orderBy('created_at', 'DESC')->paginate(10);
 
@@ -51,6 +54,123 @@ class LessonController extends BaseController {
 	 */
 	public function store()
 	{
+
+        //check if its our form, if not return JSON response Error.
+        if ( Session::token() !== Input::get( '_token' ) ) {
+            return Response::json( array(
+                'msg' => 'Unauthorized attempt to create setting.'
+            ) );
+        }
+ 		
+ 		$stage = Input::get('lesson_stage');
+
+ 		/******************
+		 * CLEAN THE TEXT		 
+ 		 ******************/
+ 		switch ($stage){
+ 			case 1:
+ 				
+ 				//base clean the text
+ 				$html = Input::get('lesson_raw');
+ 				$base_clean = clean_my_html($html, '<ul><sup><li><ol><b><p><strong><br><table><td><th><tr><tbody><i><div><img><a><span><h1><h2><h3><h4><h5><h6>');
+ 				
+ 				//full clean the text
+ 				$full_clean = clean_my_html($html, '<p><strong><br><table><td><th><tr><tbody><i><a><h1><h2><h3><h4><h5><h6>');
+ 				
+ 				//Send to Question Generator
+
+
+
+ 				//pass cleaned text to wrapper
+ 				$wrapped = wrap_my_html($html);
+
+ 				//Return the wrapped text 
+ 				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped));
+
+ 			//Receive tagged html
+ 			case 2:
+ 				//Parse tags out
+
+ 				//Send tags to Alchemy
+
+ 				//Parse response into potential array of questions
+
+ 				//generate question array
+
+ 				//Pass question array to template?
+
+ 				return Response::json(array('newstage'=>3));
+ 				break;
+ 			case 3:
+
+ 				//Save the Lesson element
+
+ 				break;
+ 		}
+    	$alchemyapi = new AlchemyAPI();
+    	$myText = "I can't wait to integrate AlchemyAPI's awesome PHP SDK into my app!";
+		$response = $alchemyapi->sentiment("text", $myText, null);
+		return "Sentiment: ".$response["docSentiment"]["type"];
+ 		/******************
+		 * SEND THE TEXT		 
+ 		 ******************/
+
+ 		/******************
+		 * MATCH THE RESPONSE		 
+ 		 ******************/
+
+ 		/******************
+		 * WRAP THE TEXT		 
+ 		 ******************/
+
+ 		/******************
+		 * SEND IT BACK
+ 		 ******************/
+
+
+        $lesson_title = Input::get( 'lesson_title' );
+        $lesson_wikikeyword = Input::get( 'lesson_wikikeyword' );
+ 
+        //.....
+        //validate data
+        //and then store it in DB
+        //.....
+ 
+        $response = array(
+            'status' => 'success',
+            'msg' => 'Setting created successfully',
+        );
+ 
+        return Response::json( $response );
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			//Get input
 			$input = Input::all();
 

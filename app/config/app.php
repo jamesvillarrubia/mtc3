@@ -124,6 +124,10 @@ return array(
         'Way\Generators\GeneratorsServiceProvider', // Generators
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // IDE Helpers
 
+        /* Asset Pipelines  */
+        'Codesleeve\AssetPipeline\AssetPipelineServiceProvider',
+
+
     ),
 
     /*

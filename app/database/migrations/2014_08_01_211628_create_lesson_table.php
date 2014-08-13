@@ -25,8 +25,8 @@ class CreateLessonTable extends Migration {
 			$table->text('img_caption');
 			$table->text('img_credit');
 			$table->text('img_path');
-			$table->integer('grade_min');
-			$table->integer('grade_max');
+			$table->integer('grade_min')->index();
+			$table->integer('grade_max')->index();
 		});
 		//
 	}

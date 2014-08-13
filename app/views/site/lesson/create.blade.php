@@ -28,6 +28,62 @@
 @section('content')
 
 
+<script>
+jQuery( document ).ready( function( $ ) {
+ 
+    $( '#form-add-lesson' ).on( 'submit', function() {
+ 
+ 		var tagged = '';
+ 		var clean = '';
+ 		var newstage = '';
+ 		var stage = $('input#form-stage').val();
+        //.....
+        //show some spinner etc to indicate operation in progress
+        //.....
+ 
+        $.post(
+            $( this ).prop( 'action' ),
+            {
+                "_token": $( this ).find( 'input[name=_token]' ).val(),
+                "lesson_title": $( '#lesson_title' ).val(),
+                "lesson_wikikeyword": $( '#lesson_wikikeyword' ).val()
+            },
+
+            reset_and_refill(data)
+,
+            'json'
+        );
+    });
+
+    var rest_and_refill = function( data ) {
+        newstage = data.stage;
+        tagged = data.tagged;
+    ç	clean = data.clean;
+
+            }
+        //Is it a new stage?
+        if(newstage > stage){
+
+        }
+
+        //
+ 
+        //.....
+        //do anything else you might want to do
+        //.....
+ 
+        //prevent the form from actually submitting in browser
+        return false;
+    } );
+ 
+} );
+
+</script>
+
+{{App::environment()
+}}
+
+
 
 <div class="clear-block">
 	<div id="lesson-form-base-section">
@@ -71,7 +127,6 @@
 						    'id' => 'lesson_wikikeyword',
 						    'placeholder' => 'Enter Wikipedia Keyword',
 						    'maxlength' => 20,
-						    'required' => true,
 						) ) }}
 					</div>
 				</div>
@@ -100,7 +155,6 @@
 						    'id' => 'lesson_tags',
 						    'placeholder' => 'Enter Lesson Tags',
 						    'maxlength' => 20,
-						    'required' => true,
 						) ) }}					
 					</div>
 				</div>
@@ -159,7 +213,6 @@
 						    'id' => 'lesson_image_caption',
 						    'placeholder' => 'Enter Main Image Caption',
 						    'maxlength' => 20,
-						    'required' => true,
 						) ) }}
 					</div>
 				</div>
@@ -174,7 +227,6 @@
 						    'id' => 'lesson_image_credit',
 						    'placeholder' => 'Enter Main Image Credit',
 						    'maxlength' => 20,
-						    'required' => true,
 						) ) }}
 					</div>
 				</div>
@@ -353,8 +405,8 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <!--  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
-<script>
-
+<!--<script>
+/*
 	if(!jQuery_1_9_1){
 		var jQuery_1_9_1 = $.noConflict(true);
 	}
@@ -363,9 +415,7 @@
 		var min = $( "#edit-mtc-lesson-field-grades-min" );
 		var max = $( "#edit-mtc-lesson-field-grades-max" );
 		//alert($().jquery);
-/*		var min = $( "#edit-field-grades-min-und" );
-		var max = $( "#edit-field-grades-max-und" );
-*/		var slideme = $('#rangeslider').slider({
+		var slideme = $('#rangeslider').slider({
     		range: true,
     		min: 0,
     		max: 12,
@@ -399,9 +449,9 @@
 		});
 	});
 </script>
-  <script src="/sites/all/libraries/ckeditor/ckeditor.js"></script>
+ <script src="/sites/all/libraries/ckeditor/ckeditor.js"></script>
   <script src="/sites/all/libraries/ckeditor/adapters/jquery.js"></script>
-
+-->
 
 
 @stop
