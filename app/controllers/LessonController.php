@@ -55,6 +55,24 @@ class LessonController extends BaseController {
 	public function store()
 	{
 
+$str = <<<EOD
+<div class="dablink">For the roller coaster, see <a href="//simple.wikipedia.org/wiki/Robin_Hood_(roller_coaster)" title="Robin Hood (roller coaster)">Robin Hood (roller coaster)</a>.</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a class="image" href="//simple.wikipedia.org/wiki/File:Robin_Hood_Memorial.jpg"><img alt="" class="thumbimage" src="//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Robin_Hood_Memorial.jpg/220px-Robin_Hood_Memorial.jpg" style="height:330px; width:220px" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a class="internal" href="//simple.wikipedia.org/wiki/File:Robin_Hood_Memorial.jpg" title="Enlarge"><img alt="" src="//bits.wikimedia.org/static-1.23wmf12/skins/common/images/magnify-clip.png" style="height:11px; width:15px" /></a></div>
+A statue of Robin Hood near the castle in <a class="mw-redirect" href="//simple.wikipedia.org/wiki/Nottingham,_England" title="Nottingham, England">Nottingham</a></div>
+</div>
+</div>
+<p><strong>Robin Hood</strong> is a <a href="//simple.wikipedia.org/wiki/Folk_hero" title="Folk hero">folk hero</a> from the <a href="//simple.wikipedia.org/wiki/Middle_Ages" title="Middle Ages">Middle Ages</a>. He is a legendary person whom people have told stories about for many years. Robin Hood is one who still remains popular. His story has been featured in books, plays, movies and cartoons as well.</p>
+<p>There are many variations of his stories. Usually, Robin Hood is an <a href="//simple.wikipedia.org/wiki/Outlaw" title="Outlaw">outlaw</a> who lives in <a href="//simple.wikipedia.org/wiki/Sherwood_Forest" title="Sherwood Forest">Sherwood Forest</a> near the town of <a class="mw-redirect" href="//simple.wikipedia.org/wiki/Nottingham,_England" title="Nottingham, England">Nottingham, England</a>. His enemies are <a href="//simple.wikipedia.org/wiki/John_of_England" title="John of England">Prince John</a> (who is temporarily on the throne because his brother, King <a href="//simple.wikipedia.org/wiki/Richard_I_of_England" title="Richard I of England">Richard the Lionheart</a> is away in the <a href="//simple.wikipedia.org/wiki/Middle_East" title="Middle East">Middle East</a> fighting in the <a href="//simple.wikipedia.org/wiki/Crusades" title="Crusades">Crusades</a>), and the corrupt <a class="new" href="//simple.wikipedia.org/w/index.php?title=Sheriff_of_Nottingham&amp;action=edit&amp;redlink=1" title="Sheriff of Nottingham (not yet started)">Sheriff of Nottingham</a>, who abuse their powers and take money from the people who need it. Robin Hood uses his archery skills and his wits to steal the money back, and return it to the poor. Accompanying Robin are his faithful followers (<a class="new" href="//simple.wikipedia.org/w/index.php?title=The_Merry_Men&amp;action=edit&amp;redlink=1" title="The Merry Men (not yet started)">The Merry Men</a>). The most recognized of his merry band include <a class="new" href="//simple.wikipedia.org/w/index.php?title=Little_John&amp;action=edit&amp;redlink=1" title="Little John (not yet started)">Little John</a>, <a class="new" href="//simple.wikipedia.org/w/index.php?title=Much_the_Millers_son&amp;action=edit&amp;redlink=1" title="Much the Millers son (not yet started)">Much the Millers son</a>, <a class="new" href="//simple.wikipedia.org/w/index.php?title=Will_Scarlet&amp;action=edit&amp;redlink=1" title="Will Scarlet (not yet started)">Will Scarlet</a>, <a class="new" href="//simple.wikipedia.org/w/index.php?title=Friar_Tuck&amp;action=edit&amp;redlink=1" title="Friar Tuck (not yet started)">Friar Tuck</a> and <a class="new" href="//simple.wikipedia.org/w/index.php?title=Alan_a_Dale&amp;action=edit&amp;redlink=1" title="Alan a Dale (not yet started)">Alan a Dale</a>.</p>
+<h2>In the media[<a class="mw-editsection-visualeditor" href="//simple.wikipedia.org/w/index.php?title=Robin_Hood&amp;veaction=edit&amp;section=1" title="Change section: In the media">change</a> | <a href="//simple.wikipedia.org/w/index.php?title=Robin_Hood&amp;action=edit&amp;section=1" title="Change section: In the media">edit source</a>]</h2>
+<p>There have been many <a href="//simple.wikipedia.org/wiki/Movie" title="Movie">movies</a> about Robin Hood. In the 1970s, <a href="//simple.wikipedia.org/wiki/Walt_Disney_Pictures" title="Walt Disney Pictures">Disney</a> made a movie where the characters were shown to be animals. Robin and his lover (Marian) are <a href="//simple.wikipedia.org/wiki/Fox" title="Fox">foxes</a>.</p>
+
+EOD;
+
+
+
         //check if its our form, if not return JSON response Error.
         if ( Session::token() !== Input::get( '_token' ) ) {
             return Response::json( array(
@@ -67,19 +85,25 @@ class LessonController extends BaseController {
  		/******************
 		 * CLEAN THE TEXT		 
  		 ******************/
- 		switch ($stage){
- 			case 1:
+ //		switch ($stage){
+ //			case 1:
  				
+ 				$alchemyapi = new AlchemyAPI();
+				//return "Sentiment: ".$response["docSentiment"]["type"];
+ 		
  				//base clean the text
  				$html = Input::get('lesson_raw');
+
+ 		//******
+ 		$html = $str;		
  				$base_clean = clean_my_html($html, '<ul><sup><li><ol><b><p><strong><br><table><td><th><tr><tbody><i><div><img><a><span><h1><h2><h3><h4><h5><h6>');
  				
  				//full clean the text
  				$full_clean = clean_my_html($html, '<p><strong><br><table><td><th><tr><tbody><i><a><h1><h2><h3><h4><h5><h6>');
  				
  				//Send to Question Generator
-
-
+				$response = $alchemyapi->entities('text',$html, array('sentiment'=>0));
+				return $response;
 
  				//pass cleaned text to wrapper
  				$wrapped = wrap_my_html($html);
@@ -88,7 +112,7 @@ class LessonController extends BaseController {
  				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped));
 
  			//Receive tagged html
- 			case 2:
+ //			case 2:
  				//Parse tags out
 
  				//Send tags to Alchemy
@@ -100,18 +124,14 @@ class LessonController extends BaseController {
  				//Pass question array to template?
 
  				return Response::json(array('newstage'=>3));
- 				break;
- 			case 3:
+// 				break;
+// 			case 3:
 
  				//Save the Lesson element
 
- 				break;
- 		}
-    	$alchemyapi = new AlchemyAPI();
-    	$myText = "I can't wait to integrate AlchemyAPI's awesome PHP SDK into my app!";
-		$response = $alchemyapi->sentiment("text", $myText, null);
-		return "Sentiment: ".$response["docSentiment"]["type"];
- 		/******************
+//				break;
+// 		}
+    	/******************
 		 * SEND THE TEXT		 
  		 ******************/
 
