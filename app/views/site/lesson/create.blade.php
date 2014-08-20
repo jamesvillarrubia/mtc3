@@ -48,9 +48,7 @@ jQuery( document ).ready( function( $ ) {
                 "lesson_title": $( '#lesson_title' ).val(),
                 "lesson_wikikeyword": $( '#lesson_wikikeyword' ).val()
             },
-
-            reset_and_refill(data)
-,
+            reset_and_refill(data),
             'json'
         );
     });
@@ -58,7 +56,7 @@ jQuery( document ).ready( function( $ ) {
     var rest_and_refill = function( data ) {
         newstage = data.stage;
         tagged = data.tagged;
-    ç	clean = data.clean;
+    	clean = data.clean;
 
             }
         //Is it a new stage?

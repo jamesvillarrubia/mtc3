@@ -135,10 +135,11 @@ EOD;
  				//Send to Question Generator
 				//$response = $alchemyapi->entities('text',$html, array('sentiment'=>0));
 				//return '<pre>'.print_r($response,true).'</pre>';
-				$response = $alchemyapi->combined('text',$stripped, null);
+				$response = $alchemyapi->entities('text',$stripped, null);
 				$keylist = array();
+
 				//Keywords
-		/*		foreach($response['keywords'] as $num => $keyarray){
+/*				foreach($response['keywords'] as $num => $keyarray){
 					$keylist[] = $keyarray['text'];	
 				}
 
@@ -146,20 +147,23 @@ EOD;
 				foreach($response['concepts'] as $num => $keyarray){
 					$keylist[] = $keyarray['text'];	
 				}
+*/				
 				//Entities
 				foreach($response['entities'] as $num => $keyarray){
-					$keylist[] = $keyarray['text'];	
+					$keylist[] = [$keyarray['text'],$keyarray['type']];
 				}
-*/
+
+				//STORE KEY LIST IN MODEL
+
 				//return '<pre>'.print_r($keylist,true).print_r($response,true).'</pre>';
 
  				//pass cleaned text to wrapper
  				$wrapped = wrap_my_html($html);
 
- 				return $wrapped;
- 				
+ 				//return '<pre>'.print_r($keylist,true).print_r($response,true).'</pre>'.$wrapped;
+
  				//Return the wrapped text 
- 				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped));
+ 				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist));
 
  			//Receive tagged html
  //			case 2:
