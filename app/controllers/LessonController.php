@@ -52,8 +52,7 @@ class LessonController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store(){
 
 $str = <<<EOD
 <div class="dablink">
@@ -112,58 +111,49 @@ EOD;
  		/******************
 		 * CLEAN THE TEXT		 
  		 ******************/
- //		switch ($stage){
- //			case 1:
+ 		switch ($stage){
+ 			case 1:
  				
+ 				//build alchemy api object
  				$alchemyapi = new AlchemyAPI();
-				//return "Sentiment: ".$response["docSentiment"]["type"];
  		
- 				//base clean the text
+ 				//Get the Raw Text
  				$html = Input::get('lesson_raw');
 
- 		//******
- 		$html = $str;		
+///////// 		//***********
+ 				$html = $str;
+
+ 				//Clean what will be shown to the user in the lesson		
  				$base_clean = clean_my_html($html, '<ul><sup><li><ol><b><p><strong><br><table><td><th><tr><tbody><i><div><img><a><span><h1><h2><h3><h4><h5><h6>');
  				
- 				//full clean the text
+ 				//Clean text to be wrapped
  				$full_clean = clean_my_html($html, '<p><strong><br><table><td><th><tr><tbody><i><a><h1><h2><h3><h4><h5><h6>');
  				
- 				//return $full_clean;
-
+ 				//Strip text to pass to Alchemy
  				$stripped = clean_my_html($full_clean, '');
+ 				
+ 				//Wrap the text to be clicked
+ 				$wrapped = wrap_my_html($full_clean);
 
  				//Send to Question Generator
-				//$response = $alchemyapi->entities('text',$html, array('sentiment'=>0));
-				//return '<pre>'.print_r($response,true).'</pre>';
 				$response = $alchemyapi->entities('text',$stripped, null);
 				$keylist = array();
 
-				//Keywords
-/*				foreach($response['keywords'] as $num => $keyarray){
-					$keylist[] = $keyarray['text'];	
-				}
-
-				//Concepts
-				foreach($response['concepts'] as $num => $keyarray){
-					$keylist[] = $keyarray['text'];	
-				}
-*/				
 				//Entities
 				foreach($response['entities'] as $num => $keyarray){
 					$keylist[] = [$keyarray['text'],$keyarray['type']];
 				}
 
-				//STORE KEY LIST IN MODEL
+				//TODO:
+				//Store keylist in model
 
-				//return '<pre>'.print_r($keylist,true).print_r($response,true).'</pre>';
+				//Store base_clean text in model
 
- 				//pass cleaned text to wrapper
- 				$wrapped = wrap_my_html($html);
+				//Store wrapped as tagged text
 
- 				//return '<pre>'.print_r($keylist,true).print_r($response,true).'</pre>'.$wrapped;
-
+			
  				//Return the wrapped text 
- 				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist));
+ 				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist, 'response'=>$response));
 
  			//Receive tagged html
  //			case 2:

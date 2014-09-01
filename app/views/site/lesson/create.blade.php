@@ -31,12 +31,13 @@
 <script>
 jQuery( document ).ready( function( $ ) {
  
-    $( '#form-add-lesson' ).on( 'submit', function() {
- 
+    $( '#form-add-lesson' ).on( 'submit', function(e) {
+ 		e.preventDefault();
+
  		var tagged = '';
  		var clean = '';
  		var newstage = '';
- 		var stage = $('input#form-stage').val();
+ 		var stage = $('input#lesson_stage').val();
         //.....
         //show some spinner etc to indicate operation in progress
         //.....
@@ -48,13 +49,19 @@ jQuery( document ).ready( function( $ ) {
                 "lesson_title": $( '#lesson_title' ).val(),
                 "lesson_wikikeyword": $( '#lesson_wikikeyword' ).val()
             },
-            reset_and_refill(data),
+            function(data){
+            	reset_and_refill(data);
+            },
             'json'
-        );
+        ).fail(function() {
+		    alert( "error" );
+		  })
     });
 
-    var rest_and_refill = function( data ) {
-        newstage = data.stage;
+    var reset_and_refill = function( data ) {
+
+    	$('#raw-text-wrapper').html(data.wrapped);
+       /* newstage = data.stage;
         tagged = data.tagged;
     	clean = data.clean;
 
@@ -71,8 +78,10 @@ jQuery( document ).ready( function( $ ) {
         //.....
  
         //prevent the form from actually submitting in browser
-        return false;
-    } );
+        */
+        //return false;
+        
+    };
  
 } );
 
@@ -97,6 +106,9 @@ jQuery( document ).ready( function( $ ) {
 		    'method' => 'post',
 		    'id' => 'form-add-lesson'
 		) ) }}
+
+		<!-- This element keeps track of the stage of submission -->
+		{{ Form::hidden('lesson_stage','')}}
 		<div class="row">
 			<div class="col-md-8">
 				<div class="row">
