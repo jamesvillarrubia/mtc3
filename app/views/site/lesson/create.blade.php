@@ -29,8 +29,8 @@
 
 
 <script>
-jQuery( document ).ready( function( $ ) {
- 
+$(document).ready(function(){
+
     $( '#form-add-lesson' ).on( 'submit', function(e) {
  		e.preventDefault();
 
@@ -87,8 +87,7 @@ jQuery( document ).ready( function( $ ) {
 
 </script>
 
-{{App::environment()
-}}
+{{App::environment()}}
 
 
 
@@ -257,9 +256,7 @@ jQuery( document ).ready( function( $ ) {
 	<div id="node-ajax-wrap">
 		<div class="row mtc-lesson-wrap-stage-1">
 			<div class="col-md-12">
-				<h1 style="padding-top: 30px;">
-					Lesson Material:
-				</h1>
+				<h1 style="padding-top: 30px;">Lesson Material:</h1>
 				<span class="row">ckeditor</span>
 				{{Form::textarea('lesson_store_ckeditor',null, array('class'=>'col-md-12'))}}
 				<span class="row">Raw:</span>
