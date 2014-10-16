@@ -28,64 +28,6 @@
 @section('content')
 
 
-<script>
-$(document).ready(function(){
-
-    $( '#form-add-lesson' ).on( 'submit', function(e) {
- 		e.preventDefault();
-
- 		var tagged = '';
- 		var clean = '';
- 		var newstage = '';
- 		var stage = $('input#lesson_stage').val();
-        //.....
-        //show some spinner etc to indicate operation in progress
-        //.....
- 
-        $.post(
-            $( this ).prop( 'action' ),
-            {
-                "_token": $( this ).find( 'input[name=_token]' ).val(),
-                "lesson_title": $( '#lesson_title' ).val(),
-                "lesson_wikikeyword": $( '#lesson_wikikeyword' ).val()
-            },
-            function(data){
-            	reset_and_refill(data);
-            },
-            'json'
-        ).fail(function() {
-		    alert( "error" );
-		  })
-    });
-
-    var reset_and_refill = function( data ) {
-
-    	$('#raw-text-wrapper').html(data.wrapped);
-       /* newstage = data.stage;
-        tagged = data.tagged;
-    	clean = data.clean;
-
-            }
-        //Is it a new stage?
-        if(newstage > stage){
-
-        }
-
-        //
- 
-        //.....
-        //do anything else you might want to do
-        //.....
- 
-        //prevent the form from actually submitting in browser
-        */
-        //return false;
-        
-    };
- 
-} );
-
-</script>
 
 {{App::environment()}}
 

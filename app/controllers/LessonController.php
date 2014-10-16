@@ -54,20 +54,25 @@ class LessonController extends BaseController {
 	public function store(){
 
         //check if its our form, if not return JSON response Error.
+        
         if ( Session::token() !== Input::get( '_token' ) ) {
             return Response::json( array(
                 'msg' => 'Unauthorized attempt to create setting.'
             ) );
         }
+        
 
- 		
- 		$stage = Input::get('lesson_stage');
+		//return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist, 'response'=>$response));
+		$return_array = Input::all();
 
- 		return $stage;
+		$return_array['lesson_title'] = 'MADE IT';
+
+ 		return Response::json($return_array);
 
  		/******************
 		 * CLEAN THE TEXT		 
  		 ******************/
+ 		/*
  		switch ($stage){
  			case 1:
  				

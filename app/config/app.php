@@ -127,6 +127,9 @@ return array(
         /* Asset Pipelines  */
         'Codesleeve\AssetPipeline\AssetPipelineServiceProvider',
 
+        /* DEBUGGER TOOL */
+        'Barryvdh\Debugbar\ServiceProvider',
+
 
     ),
 

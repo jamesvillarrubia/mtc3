@@ -13,7 +13,8 @@
         "zizaco/entrust": "~1.2",
         "bllim/datatables": "~1.3",
         "laravelbook/ardent": "dev-master",
-        "codesleeve/asset-pipeline": "dev-master"
+        "codesleeve/asset-pipeline": "dev-master",
+        "barryvdh/laravel-debugbar": "~1.7"
     },
     "require-dev": {
         "way/generators": "~2.6",
