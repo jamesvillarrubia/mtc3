@@ -199,14 +199,12 @@
 		<div class="row mtc-lesson-wrap-stage-1">
 			<div class="col-md-12">
 				<h1 style="padding-top: 30px;">Lesson Material:</h1>
-				<span class="row">ckeditor</span>
-				{{Form::textarea('lesson_store_ckeditor',null, array('class'=>'col-md-12'))}}
 				<span class="row">Raw:</span>
-				{{Form::textarea('lesson_store_raw',null, array('class'=>'col-md-12'))}}
+				{{Form::textarea('lesson_raw',null, array('class'=>'col-md-12'))}}
 				<span class="row">Tagged:</span>
-				{{Form::textarea('lesson_store_tagged',null, array('class'=>'col-md-12'))}}
+				{{Form::textarea('lesson_tagged',null, array('class'=>'col-md-12'))}}
 				<span class="row">Clean:</span>
-				{{Form::textarea('lesson_store_clean',null, array('class'=>'col-md-12'))}}
+				{{Form::textarea('lesson_clean',null, array('class'=>'col-md-12'))}}
 			</div>
 			<div id="wiki-text-wrapper"></div>
 			<div id="to-tagged-wrapper"></div>

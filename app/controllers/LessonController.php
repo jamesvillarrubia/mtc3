@@ -60,29 +60,22 @@ class LessonController extends BaseController {
                 'msg' => 'Unauthorized attempt to create setting.'
             ) );
         }
-        
+       
 
-		//return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist, 'response'=>$response));
-		$return_array = Input::all();
-
-		$return_array['lesson_title'] = 'MADE IT';
-
- 		return Response::json($return_array);
+       $stage = 1;
 
  		/******************
 		 * CLEAN THE TEXT		 
  		 ******************/
- 		/*
+ 		
  		switch ($stage){
  			case 1:
- 				
+
  				//build alchemy api object
  				$alchemyapi = new AlchemyAPI();
  		
  				//Get the Raw Text
- 				$html = Input::get('lesson_raw');
-
-				d($html); 				
+ 				$html = Input::get('lesson_raw'); 				
 
  				//Clean what will be shown to the user in the lesson		
  				$base_clean = clean_my_html($html, '<ul><sup><li><ol><b><p><strong><br><table><td><th><tr><tbody><i><div><img><a><span><h1><h2><h3><h4><h5><h6>');
@@ -96,6 +89,18 @@ class LessonController extends BaseController {
  				//Wrap the text to be clicked
  				$wrapped = wrap_my_html($full_clean);
 
+				$return_array = Input::all();
+
+				$return_array['lesson_title'] = 'MADE IT';
+				$return_array['lesson_raw'] = $wrapped;
+
+		 		return Response::json($return_array);
+
+
+
+
+
+
  				//Send to Question Generator
 				$response = $alchemyapi->entities('text',$stripped, null);
 				$keylist = array();
@@ -104,6 +109,18 @@ class LessonController extends BaseController {
 				foreach($response['entities'] as $num => $keyarray){
 					$keylist[] = [$keyarray['text'],$keyarray['type']];
 				}
+
+
+
+
+				//return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist, 'response'=>$response));
+				$return_array = Input::all();
+
+				$return_array['lesson_title'] = 'MADE IT';
+				$return_array['lesson_raw'] = 'MADE IT';
+
+		 		return Response::json($return_array);
+
 
 				//TODO:
 				//Store keylist in model
@@ -114,7 +131,7 @@ class LessonController extends BaseController {
 
 			
  				//Return the wrapped text 
- 				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist, 'response'=>$response));
+ //				return Response::json(array('newstage'=>2,'wrapped'=>$wrapped,'keywords'=>$keylist, 'response'=>$response));
 
  			//Receive tagged html
  //			case 2:
@@ -128,7 +145,7 @@ class LessonController extends BaseController {
 
  				//Pass question array to template?
 
- 				return Response::json(array('newstage'=>3));
+// 				return Response::json(array('newstage'=>3));
 // 				break;
 // 			case 3:
 
